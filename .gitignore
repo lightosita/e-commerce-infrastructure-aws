@@ -1,0 +1,10 @@
+# Terraform cache and downloaded providers/modules
+.terraform/
+
+# Terraform state files - contain sensitive data
+*.tfstate
+*.tfstate.backup
+
+# Override files
+override.tf
+override.tf.json
