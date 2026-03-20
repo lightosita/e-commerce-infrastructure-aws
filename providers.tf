@@ -1,10 +1,13 @@
 # --- Terraform Settings ---
 # Connects to Terraform Cloud for remote state management
-# Workspace is specified at init time via -backend-config flag
-# e.g. terraform init -backend-config=backends/dev.hcl
+# To switch environments, change the workspace name below
 terraform {
   cloud {
     organization = "teleios"
+
+    workspaces {
+      name = "teleios-light-dev"
+    }
   }
 
   # AWS Provider version pinned to 5.x for stability
@@ -17,7 +20,6 @@ terraform {
 }
 
 # --- AWS Provider Configuration ---
-
 provider "aws" {
   region = var.aws_region
 
