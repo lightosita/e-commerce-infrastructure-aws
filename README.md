@@ -10,10 +10,6 @@ e-commerce-infrastructure-aws/
 ├── .gitignore
 ├── .terraform.lock.hcl
 ├── README.md
-├── backends/
-│   ├── dev.hcl
-│   ├── staging.hcl
-│   └── prod.hcl
 ├── environments/
 │   ├── dev.tfvars
 │   ├── staging.tfvars
@@ -57,26 +53,29 @@ This repository wires together six reusable Terraform modules:
 
 ## How to Deploy
 
-Each environment has its own backend config and tfvars file.
-The workspace is selected at init time — no code changes needed between environments.
+Each environment has its own tfvars file.
+Before deploying, update the workspace name in `providers.tf` to match the target environment.
 
 ### Dev
 ```bash
-terraform init -backend-config=backends/dev.hcl
+# providers.tf → workspaces { name = "teleios-light-dev" }
+terraform init
 terraform plan -var-file=environments/dev.tfvars
 terraform apply -var-file=environments/dev.tfvars
 ```
 
 ### Staging
 ```bash
-terraform init -backend-config=backends/staging.hcl
+# providers.tf → workspaces { name = "teleios-light-staging" }
+terraform init
 terraform plan -var-file=environments/staging.tfvars
 terraform apply -var-file=environments/staging.tfvars
 ```
 
 ### Production
 ```bash
-terraform init -backend-config=backends/prod.hcl
+# providers.tf → workspaces { name = "teleios-light-prod" }
+terraform init
 terraform plan -var-file=environments/prod.tfvars
 terraform apply -var-file=environments/prod.tfvars
 ```
@@ -87,13 +86,8 @@ terraform apply -var-file=environments/prod.tfvars
 
 Always destroy immediately after verifying a successful deployment.
 ```bash
-# Dev
 terraform destroy -var-file=environments/dev.tfvars
-
-# Staging
 terraform destroy -var-file=environments/staging.tfvars
-
-# Prod
 terraform destroy -var-file=environments/prod.tfvars
 ```
 
