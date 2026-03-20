@@ -8,3 +8,4 @@
 # Override files
 override.tf
 override.tf.json
+.terraform.lock.hcl
