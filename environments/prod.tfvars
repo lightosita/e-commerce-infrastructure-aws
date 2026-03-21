@@ -36,7 +36,7 @@ rds_backup_retention  = 30
 # --- Redis ---
 # Multiple nodes - cache redundancy for production
 redis_node_type = "cache.t3.medium"
-redis_num_nodes = 2
+redis_num_nodes = 1
 
 # --- S3 ---
 # Versioning on, no expiry - retain all assets permanently
